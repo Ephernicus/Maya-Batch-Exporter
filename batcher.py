@@ -29,7 +29,7 @@ def check_nonmanifold():
     Filters files containing mesh with non manifold geometry 
     """
     issues = []
-    all_mesh = cmds.ls(t='mesh') # grab all mesh objects in file
+    all_mesh = cmds.ls(type='mesh') # grab all mesh objects in file
     for mesh in all_mesh:
         if cmds.polyInfo(mesh, nonManifoldVertices=True): # check if mesh has weird geomtry
             issues.append("Mesh contains non-manifold geometry")
@@ -41,7 +41,7 @@ def check_missing_texture():
     Filters files with missing/broken texture references
     """
     issues = []
-    all_textures = cmds.ls(t='file') # grab all textures in file
+    all_textures = cmds.ls(type='file') # grab all textures in file
     for texture in all_textures:
         texture_path = cmds.getAttr(f'{texture}.fileTextureName') 
         if not os.path.exists(texture_path): # if the texture path doesn't exist in disk
@@ -54,7 +54,7 @@ def check_duplicate_names():
     Filters files with duplicate names
     """
     issues = []
-    all_transforms = cmds.ls(t='transform') # get transform name of all objects in file 
+    all_transforms = cmds.ls(type='transform') # get transform name of all objects in file 
     short_names = [name.split('|')[-1] for name in all_transforms] # short name of every object
     if len(short_names) != len(set(short_names)): # if file has duplicates add to issue list
         issues.append("Mesh contains duplicate names")
