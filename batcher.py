@@ -7,8 +7,7 @@ def validate(filepath):
     Returns a list of issue strings: empty = no issues
     """
     if not os.path.exists(filepath):
-        print("File does not exist: " + filepath) 
-        return
+        return ["File does not exist"]
 
     cmds.file(filepath, open=True, force=True) # open file in maya even with unsaved changes
 
@@ -103,8 +102,9 @@ def print_report(failed):
     """
     Prints a summary of failed exports
     """
-    if len(failed) < 1: 
+    if len(failed) < 1:
         print("All files exported successfully!")
+        return
 
     print(f"{len(failed)} files failed to export:")
     for file, reason in failed:
